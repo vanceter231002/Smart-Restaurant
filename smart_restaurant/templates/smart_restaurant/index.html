@@ -1,0 +1,45 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafe Noctis</title>
+  <link rel="stylesheet" href="{%static 'smart_restaurant/style.css'%}">
+  <script src="./Scripts/script.js" defer></script>
+  <link rel="shortcut icon" href="{%static 'smart_restaurant/assets/Cafe.png'%}" type="image/x-icon">
+</head>
+
+<body onload="rem()">
+  <div class="wrapper">
+    <div class="content_wrapper">
+      <nav>
+        <ul>
+          <li>
+            <a href="/" class="reset-a">
+              <img src="{%static 'smart_restaurant/assets/Cafe.png'%}" alt="Cafe Logo" class="img">
+            </a>
+          </li>
+          <li><a href="/" class="reset-a">Cafe Noctis</a></li>
+        </ul>
+      </nav>
+      <main class="main">
+        <h1 class="title xl">Welcome to<br>cafe noctis</h1>
+        <div class="btn_wrapper">
+            <form method="post" action="{%url 'smart_restaurant:menu'%}">
+              {%csrf_token%}
+              <input type="hidden" name="table_no" value="{{table_no}}">
+              <button type="submit" class="btn title">MENU</button>
+            </form>
+        </div>
+      </main>
+      <footer class="title">
+        Made with &lt;3 by Group 11
+      </footer>
+    </div>
+  </div>
+</body>
+
+</html>

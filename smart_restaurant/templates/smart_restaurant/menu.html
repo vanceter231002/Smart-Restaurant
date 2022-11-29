@@ -1,0 +1,85 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <title>Cafe Noctis</title>
+  <link rel="stylesheet" href="{%static 'smart_restaurant/style.css'%}">
+  <script src="{%static 'smart_restaurant/script.js'%}" defer></script>
+  <link rel="shortcut icon" href="{%static 'smart_restaurant/assets/Cafe.png'%}" type="image/x-icon">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="content_wrapper">
+      <nav class="nav_left">
+        <ul>
+          <li>
+            <a href="/" class="reset-a">
+              <img src="{%static 'smart_restaurant/assets/Cafe.png'%}" alt="Cafe Logo" class="img small">
+            </a>
+          </li>
+          <li class="small">
+            <a href="/" class="reset-a">Cafe Noctis
+            </a>
+          </li>
+          <li>
+            <span class="cart">
+              <span class="material-symbols-outlined">
+                shopping_cart
+              </span>
+              <span class="notif"></span>
+            </span>
+          </li>
+        </ul>
+      </nav>
+      <div class="space"></div>
+      
+      <form method="post" action="{%url 'smart_restaurant:order'%}" id="main_form">
+        {%csrf_token%}
+        <input type="hidden" name="table_no" value="{{table_no}}">
+        {%for category in categories%}
+        <section>
+          <h3>{{category.name}}</h3>
+
+          {%for item in category.item_set.all%}
+
+          <article class="food">
+            <div class="food_type">
+              {%if item.is_non_veg%}
+                <img src="{%static 'smart_restaurant/assets/NonVeg.png'%}" alt="">
+              {%else%}
+                <img src="{%static 'smart_restaurant/assets/Veg.png'%}" alt="">
+              {%endif%}
+              {%if item.is_non_veg and item.contains_egg%}
+                <p class="smaller nonveg">{{item.item_type}}Egg</p>
+              {%endif%}
+            </div>
+            <div class="details">
+              <img
+                src="{{item.image_link}}"
+                alt="food" class="food_img">
+              <div>
+                <p>{{item.name}}</p>
+                <p class="price">{{item.price}}₹</p>
+              </div>
+            </div>
+            <div class="number">
+              <span class="ctr minus">-</span>
+              <input type="text" name="{{item.id}}" placeholder="add" title="food_counter" class="inp" />
+              <span class="ctr plus">+</span>
+            </div>
+            </article>
+            {%endfor%}
+        </section>
+        {%endfor%}
+        <button type="submit" class="btn open_cart title" value="Submit" form="main_form">Place Order</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
