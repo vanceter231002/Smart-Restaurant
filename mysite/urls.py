@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include,path
+from smart_restaurant.views import redirection
 
 urlpatterns = [
     path('smart_restaurant/',include('smart_restaurant.urls')),
+    path('',redirection),
     path('admin/',admin.site.urls)
 ]

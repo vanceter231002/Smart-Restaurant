@@ -2,7 +2,12 @@ from django.shortcuts import render
 from django.views import generic
 from .models import Item,Order,Category,ItemQuantity
 import json
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import redirect
 
+def redirection(request):
+    o=redirect(f"/smart_restaurant/1")
+    return o
 
 def index(request,table_no):
     return render(request,'smart_restaurant/index.html',{'table_no':table_no})
