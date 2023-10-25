@@ -28,6 +28,12 @@ body {
 	position: relative;
 }
 
+#egg{
+    aspect-ratio: 1 / 1;
+    width: 50px;
+
+}
+
 body::-webkit-scrollbar {
 	width: 0px;
 }

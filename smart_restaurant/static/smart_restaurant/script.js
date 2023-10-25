@@ -15,19 +15,34 @@ function update_total()
 			return
 		}
 		var list= document.getElementsByClassName("food");
-		console.log("This is list");
-		console.log(list);
+		//console.log("This is list");
+		//console.log(list);
 		var total_price=0;
 		var curr_price=0;
+		var count=0;
 		for (var i = 0; i < list.length ; i++) {
 			current_element=list[i];
 			price_element=current_element.querySelector("p.price")
 			curr_price=parseInt(price_element.innerHTML.slice(0,price_element.innerHTML.length-1));
-			quantity=current_element.querySelector("input[title='food_counter']").value;
-			console.log(curr_price);
+			quantity=current_element.querySelector("input").value
+			//console.log(curr_price);
 			console.log(quantity);
-			quantity=parseInt(quantity);
+			list[i].style.display="flex";
+			if(quantity==="")
+			{
+				quantity=0;
+				list[i].style.display="none";
+				count++;
+			}else
+			{
+				quantity=parseInt(quantity);
+			}
 			total_price=total_price+curr_price*quantity;
+		}
+		if(count==list.length)
+		{
+			backbutton=document.getElementById('buttonback');
+			backbutton.click();
 		}
 		var s="Total Amount: "
 		s=s.concat(total_price.toString(),"₹")
@@ -45,17 +60,26 @@ ctr_btn.forEach((ctrButton) => {
 			} else {
 				child.value++;
 			}
+			number++;
+			localStorage.setItem("number",number);
 			
-			update_total();
+			
 		} else {
-			if (child.value > "1") {
+			if (child.value >= "1") {
 				child.value--;
-			} else {
-				child.value = null;
-			}
-			update_total();
+				if(child.value==="0")
+				{
+					child.value=null;
+				}
+				number--;
+				localStorage.setItem("number",number);
+			} 
+			
 		}
-		if (child.value >= "1") {
+		update_total();
+		
+		//Place order widget
+		if (number >= "1") {
 			notif.style.display = "inline";
 			cart.addEventListener("click", () => {
 				window.open("../order", "_self");
@@ -69,10 +93,7 @@ ctr_btn.forEach((ctrButton) => {
 			notif.style.display = "none";
 			buy_now.style.transform = `translateY(300%)`;
 		}
-		if (child.value >= "1") {
-			number++;
-			localStorage.setItem("number", number);
-		}
+		
 	});
 });
 

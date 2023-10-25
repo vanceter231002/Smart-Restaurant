@@ -31,7 +31,7 @@
           </li>
           <li>
             <a href="./buynow.html" class="reset-a">
-              <span class="cart">
+              <span class="open_cart">
                 <span class="material-symbols-outlined">
                   shopping_cart
                 </span>
@@ -83,9 +83,13 @@
             </section>
             <h3 id="total_price" class="total"></h3>
           <div class="btn_wrapper">
-            <button type="submit" class="btn btn_buy title" form="main_form" value="Submit">
+            <button type="submit" class="btn btn_buy title"  id="buttonback" form="main_form" formaction="{%url 'smart_restaurant:menu'%}" value="Submit">
+              Go Back
+            </button>  
+            <button type="submit" class="btn btn_buy title"  id="buttonorder" form="main_form" value="Submit">
               Order Now
             </button>  
+            
           </div>
         </form>
         

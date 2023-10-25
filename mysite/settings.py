@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-mldh4qzs8lg))ji@jf#m!35tah(9bnx@^0*6cc=z%0a3@=so1x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -111,7 +111,7 @@ TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 
 USE_TZ = True
-
+STATIC_ROOT = "/home/evilkid/Smart-Restaurant/smart_restaurant/static/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

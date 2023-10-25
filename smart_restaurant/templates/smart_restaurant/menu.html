@@ -38,7 +38,7 @@
         </ul>
       </nav>
       <div class="space"></div>
-      
+
       <form method="post" action="{%url 'smart_restaurant:order'%}" id="main_form">
         {%csrf_token%}
         <input type="hidden" name="table_no" value="{{table_no}}">
@@ -50,14 +50,20 @@
 
           <article class="food">
             <div class="food_type">
-              {%if item.is_non_veg%}
+
+            {%if item.is_non_veg%}
                 <img src="{%static 'smart_restaurant/assets/NonVeg.png'%}" alt="">
-              {%else%}
+                {%if item.contains_egg%}
+                    <img src="{%static 'smart_restaurant/assets/eggIcon.png'%}" id="egg" alt="">
+                {%endif%}
+            {%elif item.contains_egg%}
+                <img src="{%static 'smart_restaurant/assets/eggIcon.png'%}" id="egg" alt="">
+                <!--<p class="smaller nonveg">{{item.item_type}}Egg</p>-->
+            {%else%}
                 <img src="{%static 'smart_restaurant/assets/Veg.png'%}" alt="">
-              {%endif%}
-              {%if item.is_non_veg and item.contains_egg%}
-                <p class="smaller nonveg">{{item.item_type}}Egg</p>
-              {%endif%}
+            {%endif%}
+
+
             </div>
             <div class="details">
               <img
@@ -70,11 +76,23 @@
             </div>
             <div class="number">
               <span class="ctr minus">-</span>
-              <input type="text" name="{{item.id}}" placeholder="add" title="food_counter" class="inp" />
+             
+              {%if item.id in items%}
+                {%for object in item_quantity %}
+                
+                  {% if item.id == object.id %}
+                   
+                  <input type="text" name="{{item.id}}" placeholder="add" title="food_counter" class="inp" value="{{object.quantity}}"/>
+                  {%endif%}
+                {%endfor%}
+              {%else%}
+                <input type="text" name="{{item.id}}" placeholder="add" title="food_counter" class="inp" value=""/>
+              {%endif%}
               <span class="ctr plus">+</span>
             </div>
             </article>
             {%endfor%}
+            
         </section>
         {%endfor%}
         <button type="submit" class="btn open_cart title" value="Submit" form="main_form">Place Order</button>

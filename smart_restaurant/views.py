@@ -17,15 +17,34 @@ def menu(request):
         table_no=request.POST['table_no']
     except:
         table_no=0
+    
+    item_ids=[item.id for item in Item.objects.all()]
+    item_quantity=[]
+    items=[]
+    
+    for id in item_ids:
+        try:
+            quantity=request.POST[str(id)]
+        except:
+            continue
+           
+        if(quantity):
+            item={'id':id,'quantity':quantity}
+            item_quantity.append(item)
+            items.append(id)
+    
     categories=Category.objects.all()
-    return render(request,'smart_restaurant/menu.html',{'categories':categories,'table_no':table_no})
+    return render(request,'smart_restaurant/menu.html',{'categories':categories,'table_no':table_no,'item_quantity':item_quantity,'items':items})
 
 def order_details(request):
     item_ids=[item.id for item in Item.objects.all()]
     item_quantity=[]
     try:
         for id in item_ids:
-            quantity=request.POST[str(id)]
+            try:
+                quantity=request.POST[str(id)]
+            except:
+                continue
             if(quantity):
                 item={'item':Item.objects.get(id=id),'quantity':quantity}
                 item_quantity.append(item)
