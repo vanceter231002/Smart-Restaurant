@@ -82,10 +82,13 @@ ctr_btn.forEach((ctrButton) => {
 		if (number >= "1") {
 			notif.style.display = "inline";
 			cart.addEventListener("click", () => {
-				window.open("../order", "_self");
+				var placeorder= document.getElementById("placeorder");
+				placeorder.click();
 			});
 			buy_now.addEventListener("click", () => {
-				window.open("../order", "_self");
+				var placeorder= document.getElementById("placeorder");
+				placeorder.click();
+				
 			});
 			buy_now.style.transform = `translateY(0%)`;
 
